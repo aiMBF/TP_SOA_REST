@@ -1,38 +1,46 @@
-version: '3.7'
+version: '3.8'
 
 services:
   evaluation_service:
-    build: ./evaluation-propriete-service
-    command:
-      - uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    build:
+      context: evaluation-propriete-service/
+      dockerfile: ./Dockerfile
     ports:
-      - 8001:8000
+      - "8001:8000"
     environment:
-      - DATABASE_URI=postgresql://eval_user:eval_password@localhost/eval_prop_db
+      - DATABASE_URI=postgresql://eval_user:eval_password@eval_prop_db/eval_prop_database
 
   eval_prop_db:
     image: postgres:12.1-alpine
+    container_name: eval_prop_db
     volumes:
       - postgres_data_eval:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=eval_user
       - POSTGRES_PASSWORD=eval_password
-      - POSTGRES_DB=eval_prop_db
+      - POSTGRES_DB=eval_prop_database
+
 
   solvabilite_service:
-    build: ./solvabilite-service
-    command:
-      - uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    build:
+      context: solvabilite-service/
+      dockerfile: ./Dockerfile
     ports:
-      - 8002:8000
+      - "8002:8000"
     environment:
-      - DATABASE_URI=postgresql://solvabilite_user:solvabilite_password@localhost/solvabilite_db
+      - DATABASE_URI=postgresql://solvabilite_user:solvabilite_password@solvabilite_db/solvabilite_db
+
 
   solvabilite_db:
     image: postgres:12.1-alpine
+    container_name: solvabilite_db
     volumes:
-      - postgres_data_eval:/var/lib/postgresql/data/
+      - postgres_data_solvabilite:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=solvabilite_user
       - POSTGRES_PASSWORD=solvabilite_password
       - POSTGRES_DB=solvabilite_db
+
+volumes:
+  postgres_data_solvabilite:
+  postgres_data_eval:

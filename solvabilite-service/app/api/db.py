@@ -3,7 +3,7 @@ from sqlalchemy import (Column, Integer, MetaData, String, Table,
 
 from databases import Database
 
-DATABASE_URL = 'postgresql://solvabilite_user:solvabilite_password@localhost/solvabilite_db'
+DATABASE_URL = 'postgresql://solvabilite_user:solvabilite_password@solvabilite_db/solvabilite_db'
 
 engine = create_engine(DATABASE_URL)
 metadata = MetaData()
