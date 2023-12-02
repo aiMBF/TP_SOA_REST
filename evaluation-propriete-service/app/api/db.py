@@ -1,0 +1,18 @@
+from sqlalchemy import (Column, Integer, MetaData, String, Table,
+                        create_engine)
+
+from databases import Database
+
+DATABASE_URL = 'postgresql://eval_user:eval_password@localhost/eval_prop_db'
+
+engine = create_engine(DATABASE_URL)
+metadata = MetaData()
+
+evaluations = Table(
+    'evaluation',
+    metadata,
+    Column('ville', String(50), primary_key=True),
+    Column('prix_par_metre', Integer)
+)
+
+database = Database(DATABASE_URL)
