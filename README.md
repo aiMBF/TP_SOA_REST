@@ -79,7 +79,7 @@ Chaque service est dockersier et nous avons orchestrer tous les services avec do
 
 
 
-# Demo
+<!-- # Demo -->
 <!-- ![Page_Web](/screenshots/demo-tp-soa.gif?raw=true)
 -->
 
@@ -94,14 +94,16 @@ Clone the project
 
 Lancer l'application Docker 
 
-![Services](/screenshots/docker.png?raw=true)
-
 Se positionner à la racine du projet
 
 ```bash
     cd TP-SOA-REST
     docker-compose up --build
 ```
+
+![Services](/screenshots/docker.png?raw=true)
+
+
 
 Se rendre à l'URL: http://localhost:8003/home/
 
