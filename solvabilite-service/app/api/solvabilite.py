@@ -14,7 +14,7 @@ async def get_revenu_client(client: Client):
 
 @router.get("/solvabilite/{id_client}")
 async def get_solvabilite(id_client: str):
-    pass
+    return {"id":id_client}
 
 
 @router.post('/', status_code=201)
