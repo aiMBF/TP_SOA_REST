@@ -30,7 +30,6 @@ services:
     environment:
       - DATABASE_URI=postgresql://solvabilite_user:solvabilite_password@solvabilite_db/solvabilite_db
 
-
   solvabilite_db:
     image: postgres:12.1-alpine
     container_name: solvabilite_db
@@ -40,6 +39,17 @@ services:
       - POSTGRES_USER=solvabilite_user
       - POSTGRES_PASSWORD=solvabilite_password
       - POSTGRES_DB=solvabilite_db
+
+  service-composite:
+    build:
+      context: service-composite/
+      dockerfile: ./Dockerfile
+    ports:
+      - "8003:8000"
+    environment:
+      - EVALUATION_SERVICE_URL=http://evaluation_service:8001
+      - SOLVABILITE_SERVICE_URL=http://solvabilite_service:8002
+    
 
 volumes:
   postgres_data_solvabilite:

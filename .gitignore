@@ -1,2 +1,5 @@
-myenv/
 .env
+service-composite/myenv/
+evaluation-propriete-service/myenv/
+extraction-informations-service/myenv/
+solvabilite-service/myenv
