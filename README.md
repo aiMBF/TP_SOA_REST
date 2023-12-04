@@ -99,7 +99,7 @@ Se positionner à la racine du projet
 ```bash
     cd TP-SOA-REST
     docker-compose up --buildb
-    
+
 ```
 
 ![Services](/screenshots/docker.png?raw=true)
@@ -108,7 +108,7 @@ Se positionner à la racine du projet
 
 Se rendre à l'URL: http://localhost:8003/home/
 
-![Home](/screenshots/home.png?raw=true)
+![Home Page](/screenshots/home.png?raw=true)
 
 
 
