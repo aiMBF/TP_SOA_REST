@@ -98,7 +98,8 @@ Se positionner à la racine du projet
 
 ```bash
     cd TP-SOA-REST
-    docker-compose up --build
+    docker-compose up --buildb
+    
 ```
 
 ![Services](/screenshots/docker.png?raw=true)
