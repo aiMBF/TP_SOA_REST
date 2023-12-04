@@ -13,7 +13,7 @@ L'ensemble des services seront mis en place en utilisant le protocole REST.
 
 # Architecture
 Chaque service est dockersier et nous avons orchestrer tous les services avec docker-compose:
-
+```bash
 .
 ├── README.md
 ├── docker-compose.yml
@@ -75,6 +75,7 @@ Chaque service est dockersier et nous avons orchestrer tous les services avec do
     │   │   └── solvabilite.py
     │   └── main.py
     └── requirements.txt
+```
 
 
 
