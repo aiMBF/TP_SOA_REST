@@ -72,7 +72,6 @@ services:
     networks:
       - network1
     
-
 volumes:
   postgres_data_solvabilite:
   postgres_data_eval:

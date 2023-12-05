@@ -24,8 +24,8 @@ async def getLoanInformations(letter):
     of the accommodation, such as town,code postal, all the interesting information
     about the accommodation.
     You also must not return text with the result.
-    You just have to return the json that content elements. 
-    Here is the schema you have to respect when returning results:
+    You just must return the json that content elements. 
+    Here is the schema you must respect when returning results:
       {{{{"name": "John Doe",
         "customerId": "client-00X",
         "description": {{
@@ -58,4 +58,4 @@ async def getLoanInformations(letter):
 @app.post("/extract")
 async def extract_data(letter: str):
     user_loan_infos = await getLoanInformations(letter)
-    return {"loan":user_loan_infos}
+    return user_loan_infos

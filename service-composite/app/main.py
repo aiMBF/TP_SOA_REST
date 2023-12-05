@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request, File, UploadFile, Form, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+import json
 from pathlib import Path
 import re
 import textract
@@ -37,6 +38,28 @@ def extraction_loan_infos(letter: str):
     else:
         raise HTTPException(status_code=response.status_code, detail=f"Error from extraction service: {response.text}")
 
+def get_solvability(clientId: str):
+    solvabilite_service_url = f"http://172.30.0.1:8002/client/{clientId}"
+    response = requests.get(solvabilite_service_url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        raise HTTPException(status_code=response.status_code, detail=f"Error from solvabile service: {response.text}")
+
+def get_eval_prop(taille: float, ville: str, adress: str):
+    eval_service_url = "http://172.30.0.1:8001/evaluer"
+    response = requests.post(eval_service_url, params={"taille":taille,"ville":ville,'adress':adress})
+    if response.status_code == 200:
+        return response.json()
+    else:
+        raise HTTPException(status_code=response.status_code, detail=f"Error from evaluation service: {response.text}")
+
+def decision(valeur, propertyPrice, litiges, score, financial_cap, name):
+    if (valeur <= propertyPrice) and (litiges == True) and (score > 50 and (financial_cap > 0)):
+        return f"Bonjour Monsieur {name}, après étude de votre dossier, nous avons le plaisir de vous annoncer que le prêt pourra vous être accordé. Passer très vite à l'agence pour signer tous les documents nécessaires."
+    return f"Bonjour Monsieur {name}, après étude de votre dossier, nous avons le regret de vous annoncer que votre situation actuelle ne vous permet pas de contracter ce prêt. Nous vous conseillons de revenir d'ici 6mois pour une nouvelle étude."
+
+
 @app.get("/home/", response_class=HTMLResponse)
 async def add_loan(request:Request):
     return templates.TemplateResponse("index.html", {"request":request})
@@ -48,9 +71,30 @@ async def create_upload_file(file: UploadFile = File(...), clientId: str = Form(
     extracted_text=""
     with open(file.filename, "wb") as f:
         f.write(file.file.read())
-        print(file.filename)
         extracted_text = extract_text(file.filename)
         print("Text extracted and cleaned:", extracted_text)
-    loan_infos = extraction_loan_infos(extracted_text)
-    client_loan_info={'clientID':clientId, 'infos':loan_infos}
-    return {"data": client_loan_info}
+    if extraction_loan_infos(extracted_text):
+        loan_infos = json.loads(extraction_loan_infos(extracted_text))
+        print(loan_infos)
+        client_solvability = get_solvability(clientId)
+        if loan_infos['description']:
+            ville=""
+            taille=0.0
+            adresse=""
+            if 'completeAdress' in loan_infos['description']['address'].keys():
+                ville = loan_infos['description']['address']['town']
+                taille = float(loan_infos['description']['surfaceArea'].split('m')[0])
+                adresse = loan_infos['description']['address']['completeAdress']
+            else:
+                ville = loan_infos['description']['address']['town']
+                taille = float(loan_infos['description']['surfaceArea'].split('m')[0])
+                adresse = loan_infos['description']['address']['completeAddress']
+            eval_result = get_eval_prop(taille, ville, adresse)
+            print(type(eval_result))
+            print(eval_result)
+            final_decision = decision(eval_result['valeur_bien'], loan_infos['propertyPrice'],
+                          eval_result['litiges_sur_le_bien'], client_solvability['score'], 
+                          client_solvability['financial_cap'],loan_infos['name'])
+            return final_decision
+        return None
+    return {"Oups": "Une erreur est survenue, veuillez réessayer plutard"}
