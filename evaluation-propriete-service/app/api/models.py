@@ -8,3 +8,4 @@ class Evaluation(BaseModel):
 
 class Litige(BaseModel):
     adresse_bien: str
+#uuii

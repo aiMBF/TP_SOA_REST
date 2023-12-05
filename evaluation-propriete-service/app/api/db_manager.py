@@ -31,3 +31,6 @@ async def add_litiges(payload: Litige):
     query = litiges.insert().values(**payload.model_dump())
 
     return await database.execute(query=query)
+
+
+#jj

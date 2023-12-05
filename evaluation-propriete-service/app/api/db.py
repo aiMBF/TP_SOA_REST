@@ -24,3 +24,5 @@ litiges = Table(
 metadata.create_all(engine)
 
 database = Database(DATABASE_URL)
+
+#uty
