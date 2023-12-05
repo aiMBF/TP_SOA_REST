@@ -8,7 +8,7 @@ services:
     ports:
       - "8001:8000"
     environment:
-      - DATABASE_URI=postgresql://eval_user:eval_password@eval_prop_db/eval_prop_database
+      - DATABASE_URI=postgresql://eval_user:eval_password@eval_prop_db/eval_prop_db
 
   eval_prop_db:
     image: postgres:12.1-alpine
@@ -18,7 +18,7 @@ services:
     environment:
       - POSTGRES_USER=eval_user
       - POSTGRES_PASSWORD=eval_password
-      - POSTGRES_DB=eval_prop_database
+      - POSTGRES_DB=eval_prop_db
 
 
   solvabilite_service:
