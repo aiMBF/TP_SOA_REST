@@ -27,7 +27,6 @@ async def get_solvabilite_client(id_client):
     return {'financial_cap': financial_cap, 'score': score}
 
 
-
 # Ajouter un nouveau client avec les informations financiers
 @router.post('/client', status_code=201)
 async def add_new_client(payload: Client):
