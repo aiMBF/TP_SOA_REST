@@ -90,7 +90,7 @@ Créer un fichier .env et ajouter la clé openai qui permet d'utiliser l'Api ope
 
 `OPENAI_API_KEY=mykey`
 
-````bash
+```bash
     cd TP-SOA-REST/extraction-informations-service/app
     touch .env
 
@@ -101,8 +101,8 @@ Créer un fichier .env et ajouter la clé openai qui permet d'utiliser l'Api ope
 Clone the project
 
 ```bash
-    git clone [https://github.com/aiMBF/TP_SOA_REST.git](https://github.com/aiMBF/TP_SOA_REST.gitgit)
-```
+    git clone [https://github.com/aiMBF/TP_SOA_REST.git](https://github.com/aiMBF/TP_SOA_REST.gitgit)``````
+
 
 Lancer l'application Docker 
 
