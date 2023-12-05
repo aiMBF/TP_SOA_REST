@@ -1,5 +1,5 @@
 from sqlalchemy import (Column, Integer, MetaData, String, Table,
-                        create_engine)
+                        create_engine, ForeignKey, Boolean)
 
 from databases import Database
 
@@ -18,4 +18,16 @@ clients = Table(
     Column('depense_mensuel', Integer)
 )
 
+
+credits = Table(
+    'credits',
+    metadata,
+    Column('id_credit', Integer, primary_key=True),
+    Column('id_client', String(50), ForeignKey('clients')),
+    Column('dette_en_cours', Integer),
+    Column('payement_en_retard', Integer),
+    Column('antecedent_faillite', Boolean)
+)
+
+metadata.create_all(engine)
 database = Database(DATABASE_URL)
