@@ -47,3 +47,13 @@ async def add_new_credit(payload: Credit):
         **payload.model_dump()
     }
     return response
+
+
+@router.get('/clients')
+async def get_clients():
+    return await get_all_clients()
+
+
+@router.get('/credits')
+async def get_credits():
+    return await get_all_credit()

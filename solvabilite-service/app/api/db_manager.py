@@ -54,3 +54,12 @@ async def get_credit_informations(id_client):
     else:
         raise HTTPException(status_code=404, detail="Client not found")
 
+
+async def get_all_clients():
+    query = clients.select()
+    return await database.fetch_all(query=query)
+
+
+async def get_all_credit():
+    query = clients.select()
+    return await database.fetch_all(query=query)
