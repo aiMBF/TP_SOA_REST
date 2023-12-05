@@ -82,7 +82,19 @@ Chaque service est dockersier et nous avons orchestrer tous les services avec do
 <!-- # Demo -->
 <!-- ![Page_Web](/screenshots/demo-tp-soa.gif?raw=true)
 -->
+## Variables d'environnement
 
+Pour lancer le projet, vous devez:
+
+Créer un fichier .env et ajouter la clé openai qui permet d'utiliser l'Api openai:
+
+`OPENAI_API_KEY=mykey`
+
+````bash
+    cd TP-SOA-REST/extraction-informations-service/app
+    touch .env
+
+```
 
 ## Lancer le projet
 
