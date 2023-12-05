@@ -10,7 +10,7 @@ services:
     environment:
       - DATABASE_URI=postgresql://eval_user:eval_password@eval_prop_db/eval_prop_db
     networks:
-      - network-eval
+      - network1
 
   eval_prop_db:
     image: postgres:12.1-alpine
@@ -22,7 +22,7 @@ services:
       - POSTGRES_PASSWORD=eval_password
       - POSTGRES_DB=eval_prop_db
     networks:
-      - network-eval
+      - network1
 
 
   solvabilite_service:
@@ -34,7 +34,7 @@ services:
     environment:
       - DATABASE_URI=postgresql://solvabilite_user:solvabilite_password@solvabilite_db/solvabilite_db
     networks:
-      - network-solv
+      - network1
 
   solvabilite_db:
     image: postgres:12.1-alpine
@@ -46,7 +46,7 @@ services:
       - POSTGRES_PASSWORD=solvabilite_password
       - POSTGRES_DB=solvabilite_db
     networks:
-      - network-solv
+      - network1
 
   service-extraction:
     build:
@@ -80,5 +80,4 @@ volumes:
 networks:
   network1:
     driver: bridge
-  network-eval:
-  network-solv:
+
