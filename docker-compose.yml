@@ -50,10 +50,11 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "8003:8000"
+    env_file:
+      - ./.env
     networks:
       - network1
     
-
   service-composite:
     build:
       context: service-composite/
