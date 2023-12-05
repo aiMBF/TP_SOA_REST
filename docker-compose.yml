@@ -9,6 +9,8 @@ services:
       - "8001:8000"
     environment:
       - DATABASE_URI=postgresql://eval_user:eval_password@eval_prop_db/eval_prop_db
+    networks:
+      - network1
 
   eval_prop_db:
     image: postgres:12.1-alpine
@@ -29,6 +31,8 @@ services:
       - "8002:8000"
     environment:
       - DATABASE_URI=postgresql://solvabilite_user:solvabilite_password@solvabilite_db/solvabilite_db
+    networks:
+      - network1
 
   solvabilite_db:
     image: postgres:12.1-alpine
@@ -40,17 +44,34 @@ services:
       - POSTGRES_PASSWORD=solvabilite_password
       - POSTGRES_DB=solvabilite_db
 
+  service-extraction:
+    build:
+      context: extraction-informations-service/
+      dockerfile: ./Dockerfile
+    ports:
+      - "8003:8000"
+    networks:
+      - network1
+    
+
   service-composite:
     build:
       context: service-composite/
       dockerfile: ./Dockerfile
     ports:
-      - "8003:8000"
+      - "8004:8000"
     environment:
       - EVALUATION_SERVICE_URL=http://evaluation_service:8001
       - SOLVABILITE_SERVICE_URL=http://solvabilite_service:8002
+      - EXTRACTION_SERVICE_URL=http://service-extraction:8003
+    networks:
+      - network1
     
 
 volumes:
   postgres_data_solvabilite:
   postgres_data_eval:
+
+networks:
+  network1:
+    driver: bridge
