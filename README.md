@@ -102,13 +102,13 @@ Se positionner à la racine du projet
 
 ```
 
-![Services](/screenshots/docker.png?raw=true)
+![Services](/screenshots/containers.png?raw=true)
 
 
 
 Se rendre à l'URL: http://localhost:8003/home/
 
-![Home Page](/screenshots/home2.png?raw=true)
+![Home Page](/screenshots/home.png?raw=true)
 
 
 
