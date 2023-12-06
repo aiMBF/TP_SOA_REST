@@ -29,17 +29,20 @@ def extract_text(file_path):
         raise HTTPException(status_code=500, detail=f"Error extracting text: {e}")
 
 def extraction_loan_infos(letter: str):
-    extraction_service_url = "http://172.30.0.1:8003/extract"
+    extraction_service_url = "http://172.21.0.1:8003/extract"
     data_to_send = {"letter": letter}
     print(f'data_to_send {data_to_send}')
     response = requests.post(extraction_service_url, params=data_to_send)
     if response.status_code == 200:
-        return response.json()
+        if response is not None:
+            return response.json()
+        else:
+            print("Voici la reponse fournie" + response)
     else:
         raise HTTPException(status_code=response.status_code, detail=f"Error from extraction service: {response.text}")
 
 def get_solvability(clientId: str):
-    solvabilite_service_url = f"http://172.30.0.1:8002/client/{clientId}"
+    solvabilite_service_url = f"http://172.21.0.1:8002/client/{clientId}"
     response = requests.get(solvabilite_service_url)
     if response.status_code == 200:
         return response.json()
@@ -47,7 +50,7 @@ def get_solvability(clientId: str):
         raise HTTPException(status_code=response.status_code, detail=f"Error from solvabile service: {response.text}")
 
 def get_eval_prop(taille: float, ville: str, adress: str):
-    eval_service_url = "http://172.30.0.1:8001/evaluer"
+    eval_service_url = "http://172.21.0.1:8001/evaluer"
     response = requests.post(eval_service_url, params={"taille":taille,"ville":ville,'adress':adress})
     if response.status_code == 200:
         return response.json()
@@ -55,7 +58,7 @@ def get_eval_prop(taille: float, ville: str, adress: str):
         raise HTTPException(status_code=response.status_code, detail=f"Error from evaluation service: {response.text}")
 
 def decision(valeur, propertyPrice, litiges, score, financial_cap, name):
-    if (valeur <= propertyPrice) and (litiges == True) and (score > 50 and (financial_cap > 0)):
+    if (valeur <= propertyPrice) and (litiges == False) and (score > 50 and (financial_cap > 0)):
         return f"Bonjour Monsieur {name}, après étude de votre dossier, nous avons le plaisir de vous annoncer que le prêt pourra vous être accordé. Passer très vite à l'agence pour signer tous les documents nécessaires."
     return f"Bonjour Monsieur {name}, après étude de votre dossier, nous avons le regret de vous annoncer que votre situation actuelle ne vous permet pas de contracter ce prêt. Nous vous conseillons de revenir d'ici 6mois pour une nouvelle étude."
 
