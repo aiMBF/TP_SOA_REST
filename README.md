@@ -121,5 +121,9 @@ Se rendre à l'URL: http://localhost:8003/home/
 
 ![Home Page](/screenshots/home.png?raw=true)
 
+![Acceptation Page](/screenshots/acceptation.png?raw=true)
+
+![Refus Page](/screenshots/refus.png?raw=true)
+
 
 
