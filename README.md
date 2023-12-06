@@ -123,6 +123,7 @@ Se rendre à l'URL: http://localhost:8003/home/
 
 ![Acceptation Page](/screenshots/acceptation.png?raw=true)
 
+
 ![Refus Page](/screenshots/refus.png?raw=true)
 
 
